@@ -19,6 +19,7 @@ var CompanySchema = new Schema(
   },
   {
     timestamps: true,
+    collection: "companies",
   }
 );
 

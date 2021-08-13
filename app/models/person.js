@@ -19,6 +19,7 @@ var PersonSchema = new Schema(
   },
   {
     timestamps: true,
+    collection: "persons",
   }
 );
 module.exports = mongoose.model("Person", PersonSchema);

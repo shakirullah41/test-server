@@ -41,7 +41,6 @@ axios.get("https://fakerapi.it/api/v1/companies").then(async (response) => {
       contact: contactObj._id,
     });
   });
-  console.log(adressToSave);
   return Promise.all([
     ...companies,
     Person.insertMany(contactToSave),
