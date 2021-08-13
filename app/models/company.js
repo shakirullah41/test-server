@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var { Schema } = require("mongoose");
+var {registerEvents} = require('./events/modelEvents');
 
 var CompanySchema = new Schema(
   {
@@ -22,5 +23,5 @@ var CompanySchema = new Schema(
     collection: "companies",
   }
 );
-
+registerEvents(CompanySchema);
 module.exports = mongoose.model("Company", CompanySchema);
