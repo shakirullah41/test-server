@@ -1,4 +1,4 @@
-var Company = require("../models/company.js");
+var Person = require("../models/person.js");
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -16,38 +16,38 @@ function handleError(res, statusCode) {
 
 module.exports = {
   index: (req, res) => {
-    return Company.find({})
+    return Person.find({})
       .exec()
-      .then((companies) => {
-        res.status(200).json(companies);
+      .then((person) => {
+        res.status(200).json(person);
       })
       .catch(handleError(res));
   },
   create: (req, res) => {
-    var newCompany = new Company(req.body);
-    return newCompany
+    var newPerson = new Person(req.body);
+    return newPerson
       .save()
-      .then((company) => {
-        res.status(200).json(company);
+      .then((person) => {
+        res.status(200).json(person);
       })
       .catch(validationError(res));
   },
   show: (req, res, next) => {
-    var companyId = req.params.id;
+    var personId = req.params.id;
 
-    return Company.findById(companyId)
+    return Person.findById(personId)
       .exec()
-      .then((company) => {
-        if (!company) {
+      .then((person) => {
+        if (!person) {
           return res.status(404).end();
         }
-        res.json(company);
+        res.json(person);
       })
       .catch((err) => next(err));
   },
 
   destroy: (req, res) => {
-    return Company.findByIdAndRemove(req.params.id)
+    return Person.findByIdAndRemove(req.params.id)
       .exec()
       .then(function () {
         res.status(204).end();
