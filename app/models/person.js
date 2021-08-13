@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var { Schema } = require("mongoose");
+var { registerEvents } = require("./events/modelEvents");
 
 var PersonSchema = new Schema(
   {
@@ -22,4 +23,5 @@ var PersonSchema = new Schema(
     collection: "persons",
   }
 );
+registerEvents(PersonSchema);
 module.exports = mongoose.model("Person", PersonSchema);
