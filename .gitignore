@@ -25,5 +25,3 @@ npm-debug.*
 /public
 /uploads
 /config.js
-/pushNotification.json
-pushNotification.json
