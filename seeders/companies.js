@@ -37,7 +37,7 @@ axios.get("https://fakerapi.it/api/v1/companies").then(async (response) => {
     contactToSave.push(contactObj);
     return Company.create({
       ...company,
-      addressess: addressIds,
+      addresses: addressIds,
       contact: contactObj._id,
     });
   });

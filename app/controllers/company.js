@@ -1,4 +1,5 @@
 var Company = require("../models/company.js");
+var Address = require("../models/address.js");
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -10,6 +11,7 @@ function validationError(res, statusCode) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function (err) {
+    console.log(err);
     return res.status(statusCode).send(err);
   };
 }
@@ -17,6 +19,8 @@ function handleError(res, statusCode) {
 module.exports = {
   index: (req, res) => {
     return Company.find({})
+      .populate("contact")
+      .populate("addresses")
       .exec()
       .then((companies) => {
         res.status(200).json(companies);
