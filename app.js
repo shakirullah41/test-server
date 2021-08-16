@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var cors = require("cors");
 var mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 // var config = require('./config/environment');
@@ -10,7 +11,7 @@ mongoose.Promise = require("bluebird");
 var routes = require("./app/routes");
 
 var app = express();
-
+app.use(cors())
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
