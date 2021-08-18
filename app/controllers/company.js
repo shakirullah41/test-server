@@ -1,3 +1,4 @@
+var mongoose = require("mongoose");
 var Company = require("../models/company.js");
 var Address = require("../models/address.js");
 
@@ -27,11 +28,25 @@ module.exports = {
       })
       .catch(handleError(res));
   },
-  create: (req, res) => {
-    var newCompany = new Company(req.body);
+  create: async (req, res) => {
+    const { lat, long, ...companyInfo } = req.body;
+    const addressToSave = {
+      _id: new mongoose.Types.ObjectId(),
+      latitude: lat,
+      longitude: long,
+    };
+    const newCompany = new Company({
+      ...companyInfo,
+      addresses: [addressToSave._id],
+    });
     return newCompany
       .save()
-      .then((company) => {
+      .then(async (company) => {
+        const newAddress = new Address({
+          ...addressToSave,
+          company: company._id,
+        });
+        await newAddress.save();
         res.status(200).json(company);
       })
       .catch(validationError(res));
