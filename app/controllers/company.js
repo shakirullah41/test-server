@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var Company = require("../models/company.js");
 var Address = require("../models/address.js");
-
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
   return function (err) {
@@ -47,6 +46,10 @@ module.exports = {
           company: company._id,
         });
         await newAddress.save();
+        global.io.emit("company-added", {
+          ...addressToSave,
+          company,
+        });
         res.status(200).json(company);
       })
       .catch(validationError(res));

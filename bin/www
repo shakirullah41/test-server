@@ -26,12 +26,9 @@ const io = new Server(server, {
     origin: ["http://localhost:4200"],
   },
 });
+global.io = io;
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
-  io.on("join-room", (userId) => {
-    io.join(userId);
-  });
-  io.emit("send-msg", "asdsaadsad sadsadsad this is msg");
 });
 
 /**
